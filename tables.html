@@ -16,6 +16,7 @@
     <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 
     <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="http://smoothiecharts.org/smoothie.js"></script>
 
     <style type="text/css">
       body {
@@ -29,7 +30,8 @@
     <![endif]-->
         
   	<!-- Google Fonts call. Font Used Open Sans -->
-  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    
 
   	<!-- DataTables Initialization -->
     <script type="text/javascript" src="js/datatables/jquery.dataTables.js"></script>
@@ -37,7 +39,21 @@
   			    $(document).ready(function () {
   			        $('#dt1').dataTable();
   			    });
-	</script>
+  </script>
+      <script type="text/javascript">
+
+        // Randomly add a data point every 500ms
+        var random = new TimeSeries();
+        setInterval(function() {
+          random.append(new Date().getTime(), Math.random() * 10000);
+        }, 500);
+        
+        function createTimeline() {
+          var chart = new SmoothieChart();
+          chart.addTimeSeries(random, { strokeStyle: 'rgba(0, 255, 0, 1)', fillStyle: 'rgba(0, 255, 0, 0.2)', lineWidth: 4 });
+          chart.streamTo(document.getElementById("liveChart"), 500);
+        }
+      </script>
 
     
   </head>
@@ -53,21 +69,35 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><img src="images/logo30.png" alt="">메이타(Mata)</a>
+          <a class="navbar-brand" href="index.html">메이타(Mata)</a>
         </div> 
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
               <li><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>              
               <li class="active"><a href="tables.html"><i class="icon-th icon-white"></i> Market</a></li>
-              <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li>
-              <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
-
+              <li><a href="challenge.html"><i class="icon-th icon-white"></i> challenge</a></li>
+              <!-- <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li> -->
+              <!-- <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li> -->
+              <li><a href="B2B.html"><i class="icon-user icon-white"></i> B2B</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
     </div>
 
-    <div class="container">
+  <div class="container">
+      <canvas id="liveChart" width="400" height="100"></canvas>
+      <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <h4><strong>Line Chart</strong></h4>
+            <iframe src='./chart/lineChart.html' frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 style="width : 100%;height : 400px;outline : none; border : none;"></iframe>
+            </div>
+      </div>
+      <div class="row">
+          <div class="col-sm-12 col-lg-12">
+            <h4><strong>Bar Chart</strong></h4>
+            <iframe src='./chart/barChart.html' frameborder=0 framespacing=0 marginheight=0 marginwidth=0 scrolling=no vspace=0 style="width : 100%;height : 400px;outline : none; border : none;"></iframe>
+            </div>
+      </div>
 
       <!-- CONTENT -->
 	<div class="row">
@@ -642,12 +672,15 @@
       	<div class="container">
       		<div class="row">
       			<div class="col-sm-12 col-lg-12">
-      			<p><img src="images/logo.png"" alt=""></p>
+      			<p><img src="images/logo.png" alt=""></p>
       			<p>메이타(Mata)</p>
       			</div>
 
       		</div><!-- /row -->
       	</div><!-- /container -->		
 	</div><!-- /footerwrap -->
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+  <script type="text/javascript" src="./js/util.js"></script>
+  
 </body></html>
